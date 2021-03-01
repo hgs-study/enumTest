@@ -16,4 +16,12 @@ public class exceptionHandler {
         response.setDetail(e.getMessage());
         return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(businessException.class)
+    public ResponseEntity<errorResponse> businessException(businessException e){
+        errorResponse response = errorResponse.of(e.getErrorCode());
+        errorCode code = e.getErrorCode();
+        response.setDetail(response.getMessage());
+        return new ResponseEntity<errorResponse>(response,HttpStatus.valueOf(code.getStatus()));
+    }
 }

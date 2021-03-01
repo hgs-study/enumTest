@@ -1,5 +1,7 @@
 package com.example.enum_test.business.enumTest.controller;
 
+import com.example.enum_test.business.common.exception.businessException;
+import com.example.enum_test.business.enumTest.enumerated.errorCode;
 import com.example.enum_test.business.enumTest.enumerated.testEnum;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +21,14 @@ public class enumController {
 
     @GetMapping("/exceptionEnumTest")
     public void exceptionEnumTest(){
-        throw new IllegalArgumentException("오류입니다.");
+        throw new IllegalArgumentException(errorCode.INVALID_REQUEST.getCode());
     }
+
+    @GetMapping("/businessExceptionTest")
+    public void businessException(){
+        System.out.println("enumController businessExceptionTest start");
+        throw new businessException(errorCode.FORBIDDEN);
+    }
+
 
 }
